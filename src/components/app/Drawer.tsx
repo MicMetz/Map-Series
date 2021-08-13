@@ -1,4 +1,4 @@
-import {Divider, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery,} from "@material-ui/core";
+import {Divider, List, ListItemButton, ListItemIcon, ListItemText} from "@material-ui/core";
 import MuiDrawer from "@material-ui/core/Drawer";
 import HomeIcon from "@material-ui/icons/Home";
 import FavoritesIcon from "@material-ui/icons/Star";
