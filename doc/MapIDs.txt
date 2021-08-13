@@ -1,0 +1,11 @@
+webscene: 
+	Azerbaijan
+	5f0a4edc599c4b6cbf146884818b03a7
+
+
+webmap:
+	Shodan
+	2a766a411bcb41d8b76f14ec038ffe20
+	
+	ALPR
+	175ee55082e349caa4c747b88b5d0217

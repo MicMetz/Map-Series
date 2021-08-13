@@ -4,7 +4,7 @@ import AppFrame from "components/app/AppFrame";
 function FavoritesPage() {
   return (
     <AppFrame>
-      <Typography variant="h1" fontSize={"4rem"}>Favorites</Typography>
+      <Typography variant="h1" fontSize={"4rem"} marginLeft={5}>Favorites</Typography>
     </AppFrame>
   );
 }

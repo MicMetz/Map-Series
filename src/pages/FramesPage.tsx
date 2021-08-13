@@ -1,17 +1,19 @@
 import {Box, Divider, Typography} from "@material-ui/core";
 import AppFrame from "components/app/AppFrame";
 import React from "react";
+import useTheme from "@material-ui/core/styles/useTheme";
+import themeState, {ThemeMode} from "../store/themeState"
 import {CurrentFrameContainer} from "components/mapframe/CurrentFrameContainer"
 
 
-function FavoritesPage() {
+function FramesPage() {
 	return (
 		<AppFrame>
-			<Typography variant = "h1" fontSize = {"4rem"}>Map Frames</Typography>
+			<Typography variant = "h1" fontSize = {"4rem"} marginLeft={5}>Map Frames</Typography>
 			<Box
 				sx = {{
 					width         : "100%",
-					height        : "90%",
+					height        : "80%",
 					marginTop     : "5vh",
 					display       : "flex",
 					justifyContent: "center",
@@ -23,44 +25,40 @@ function FavoritesPage() {
 						width      : 300,
 						height     : 300,
 						marginRight: 5,
-						bgcolor    : 'primary.dark',
+						bgcolor    : 'background.paper',
 						'&:hover'  : {
-							backgroundColor: 'primary.main',
-							opacity        : [0.9, 0.8, 0.7],
+							backgroundColor: 'secondary.dark',
+							opacity        : [0.7, 0.8, 0.6],
 						},
 					}}
 				>
 					{/*<CurrentFrameContainer  id={""}/>*/}
 				</Box>
 
-				<Divider/>
-
 				<Box
 					sx = {{
 						width      : 300,
 						height     : 300,
 						marginRight: 5,
-						bgcolor    : 'primary.dark',
+						bgcolor    : 'background.paper',
 						'&:hover'  : {
-							backgroundColor: 'primary.main',
-							opacity        : [0.9, 0.8, 0.7],
+							backgroundColor: 'secondary.dark',
+							opacity        : [0.7, 0.8, 0.6],
 						},
 					}}
 				>
 					{/*<CurrentFrameContainer  id={""}/>*/}
 				</Box>
 
-				<Divider/>
-
 				<Box
 					sx = {{
 						width      : 300,
 						height     : 300,
 						marginRight: 5,
-						bgcolor    : 'primary.dark',
+						bgcolor    : 'background.paper',
 						'&:hover'  : {
-							backgroundColor: 'primary.main',
-							opacity        : [0.9, 0.8, 0.7],
+							backgroundColor: 'secondary.dark',
+							opacity        : [0.7, 0.8, 0.6],
 						},
 					}}
 				>
@@ -71,7 +69,7 @@ function FavoritesPage() {
 			<Box
 				sx = {{
 					width         : "100%",
-					height        : "90%",
+					height        : "50%",
 					display       : "flex",
 					justifyContent: "center",
 					alignItems    : "center",
@@ -82,44 +80,40 @@ function FavoritesPage() {
 						width      : 300,
 						height     : 300,
 						marginRight: 5,
-						bgcolor    : 'primary.dark',
+						bgcolor    : 'background.paper',
 						'&:hover'  : {
-							backgroundColor: 'primary.main',
-							opacity        : [0.9, 0.8, 0.7],
+							backgroundColor: 'secondary.dark',
+							opacity        : [0.7, 0.8, 0.6],
 						},
 					}}
 				>
 					{/*<CurrentFrameContainer  id={""}/>*/}
 				</Box>
 
-				<Divider/>
-
 				<Box
 					sx = {{
 						width      : 300,
 						height     : 300,
 						marginRight: 5,
-						bgcolor    : 'primary.dark',
+						bgcolor    : 'background.paper',
 						'&:hover'  : {
-							backgroundColor: 'primary.main',
-							opacity        : [0.9, 0.8, 0.7],
+							backgroundColor: 'secondary.dark',
+							opacity        : [0.7, 0.8, 0.6],
 						},
 					}}
 				>
 					{/*<CurrentFrameContainer  id={""}/>*/}
 				</Box>
 
-				<Divider/>
-
 				<Box
 					sx = {{
 						width      : 300,
 						height     : 300,
 						marginRight: 5,
-						bgcolor    : 'primary.dark',
+						bgcolor    : 'background.paper',
 						'&:hover'  : {
-							backgroundColor: 'primary.main',
-							opacity        : [0.9, 0.8, 0.7],
+							backgroundColor: 'secondary.dark',
+							opacity        : [0.7, 0.8, 0.6],
 						},
 					}}
 				>
@@ -130,4 +124,4 @@ function FavoritesPage() {
 	);
 }
 
-export default FavoritesPage;
+export default FramesPage;

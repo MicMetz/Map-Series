@@ -5,7 +5,7 @@ import {CurrentFrameContainer} from "../components/mapframe/CurrentFrameContaine
 function HomePage() {
 	return (
 		<AppFrame>
-			<Typography variant = "h1" fontSize={"4rem"}>Home</Typography>
+			<Typography variant = "h1" fontSize={"4rem"} marginLeft={5}>Home</Typography>
 			<Box
 				sx = {{
 					width         : "100%",
