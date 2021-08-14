@@ -27,7 +27,7 @@ const AppFrame: React.FC<AppFrameProps> = ({children}) => {
 	/*
 	 * themeMode: 		reactive theme value (DARK | LIGHT)
 	 * setThemeMode: 	setter function of reactive variable themeMode
-	*/
+	 */
 	const [themeMode, setThemeMode] = useRecoilState(themeState);
 	const handleThemeChange         = () =>
 		setThemeMode(

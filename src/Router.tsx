@@ -3,6 +3,8 @@ import FavoritesPage from "./pages/FavoritesPage";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import FramesPage from "./pages/FramesPage";
+import GalleryPage from "./pages/GalleryPage";
+import TestPage from "./pages/TestPage";
 
 const routeOptions = {
 	showAppBar: true,
@@ -16,8 +18,14 @@ const router = OptionsRouter(routeOptions, (route) => ({
 	favorites: route("favorites", {
 		component: FavoritesPage,
 	}),
-	frames: route("frames", {
+	frames   : route("frames", {
 		component: FramesPage,
+	}),
+	gallery  : route("gallery", {
+		component: GalleryPage,
+	}),
+	test  : route("test_page", {
+		component: TestPage,
 	}),
 	fallback : route("*", {
 		component: NotFoundPage,

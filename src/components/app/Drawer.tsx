@@ -14,10 +14,12 @@ const Drawer: React.FC = () => {
 	const [open, setOpen]           = useRecoilState(drawerOpenState);
 	const history                   = useHistory();
 	// const greaterThan400            = useMediaQuery("(min-width:400px)");
-	const {home, favorites, frames} = useRoutesActive({
+	const {home, favorites, frames, gallery, test} = useRoutesActive({
 		home     : router.home,
 		favorites: router.favorites,
 		frames   : router.frames,
+		gallery  : router.gallery,
+		test     : router.test,
 	});
 
 	const handleClose = () => setOpen(false);
@@ -37,6 +39,16 @@ const Drawer: React.FC = () => {
 		setOpen(false);
 	};
 
+	const onGalleryClick = () => {
+		history.push(router.gallery().$);
+		setOpen(false);
+	};
+
+	const onTestPageClick = () => {
+		history.push(router.test().$);
+		setOpen(false);
+	};
+
 	return (
 		<MuiDrawer anchor = "left" open = {open} onClose = {handleClose}>
 			<List>
@@ -53,7 +65,7 @@ const Drawer: React.FC = () => {
 					<ListItemIcon>
 						<FavoritesIcon/>
 					</ListItemIcon>
-					<ListItemText primary = {"Favorite"}/>
+					<ListItemText primary = {"Favorites"}/>
 				</ListItemButton>
 
 				<Divider/>
@@ -62,7 +74,25 @@ const Drawer: React.FC = () => {
 					<ListItemIcon>
 						<MapIcon/>
 					</ListItemIcon>
-					<ListItemText primary = {"Frames"}/>
+					<ListItemText primary = {"GIS"}/>
+				</ListItemButton>
+
+				<Divider/>
+
+				<ListItemButton onClick = {onGalleryClick} selected = {gallery}>
+					<ListItemIcon>
+						<MapIcon/>
+					</ListItemIcon>
+					<ListItemText primary = {"Gallery"}/>
+				</ListItemButton>
+
+				<Divider/>
+
+				<ListItemButton onClick = {onTestPageClick} selected = {test}>
+					<ListItemIcon>
+						<MapIcon/>
+					</ListItemIcon>
+					<ListItemText primary = {"Test Page"}/>
 				</ListItemButton>
 			</List>
 		</MuiDrawer>

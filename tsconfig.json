@@ -18,16 +18,22 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es5",
+    "target": "ES5",
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "ES2019"
     ],
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "jsxFactory": "tsx",
+    "experimentalDecorators": true,
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "importHelpers": true
   },
   "include": [
     "src/**/*"
