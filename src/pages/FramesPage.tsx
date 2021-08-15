@@ -1,28 +1,18 @@
-import React from "react";
+import React, {useEffect, useState, useRef} from "react";
 import AppFrame from "components/app/AppFrame";
 import {Theme} from '@material-ui/core/styles';
 import {makeStyles, createStyles} from '@material-ui/styles';
-import Divider from '@material-ui/core/Divider';
-
-import {Typography, Box, Card, CardHeader, CardMedia, CardContent, CardActions, CardActionArea, Button} from "@material-ui/core";
+import {loadModules} from "esri-loader";
+import {Typography, Divider, Box, Card, CardMedia, CardContent, CardActions, CardActionArea, Button} from "@material-ui/core";
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import clsx from 'clsx';
-import {red} from '@material-ui/core/colors';
+import SelectedSceneView from "components/mapframe/SelectedSceneView"
+import useSetMapsQueryParams from "../store/useMapQueryParams";
 
-
-import WebMap from "@arcgis/core/WebMap";
-import {load, project} from "@arcgis/core/geometry/projection";
-import MapView from "@arcgis/core/views/MapView";
-import Search from "esri/widgets/Search";
 
 
 const useStyles = makeStyles((/*theme: Theme*/) =>
 	createStyles({
-		root      : {
+		root    : {
 			display       : 'flex',
 			flexWrap      : 'wrap',
 			width         : "100%",
@@ -32,21 +22,14 @@ const useStyles = makeStyles((/*theme: Theme*/) =>
 			overflow      : 'hidden',
 			bgcolor       : 'background.paper',
 		},
-		expand    : {
-			float     : "right",
-			transform : 'rotate(0deg)',
-			marginLeft: 'auto',
-			/*transition: theme.transitions.create('transform', {
-			 duration: theme.transitions.duration.shortest,
-			 }),*/
+		expand  : {
+			maxWidth: "calc(100% / 2)",
+			// transform: 'rotate(180deg)',
 		},
-		expandOpen: {
-			transform: 'rotate(180deg)',
-		},
-		avatar    : {
+		avatar  : {
 			backgroundColor: "black",
 		},
-		cardItem  : {
+		cardItem: {
 			width       : 300,
 			height      : 380,
 			marginBottom: "5vh",
@@ -54,16 +37,16 @@ const useStyles = makeStyles((/*theme: Theme*/) =>
 			marginLeft  : "2vw",
 			overflow    : 'hidden',
 		},
-		content   : {
+		content : {
 			width   : 300,
 			height  : 200,
 			overflow: 'hidden',
 		},
-		actions   : {
+		actions : {
 			height: 40,
 			bottom: "100%"
 		},
-		icon      : {
+		icon    : {
 			color    : 'rgba(255, 255, 255, 0.54)',
 			'&:hover': {
 				color  : 'primary.dark',
@@ -75,30 +58,15 @@ const useStyles = makeStyles((/*theme: Theme*/) =>
 );
 
 
-interface MapProps {
-	id: string,
-	title: string,
-	details: string,
-}
-
-
 export default function FramesPage() {
-	const classes                 = useStyles();
-	const [expanded, setExpanded] = React.useState(false);
+	const classes                   = useStyles();
+	const [showFrame, setShow]      = React.useState(false);
+	const [mapSceneView, setSceneView] = useState(null);
+	useSetMapsQueryParams(mapSceneView);
 
-	const handleExpandClick = () => {
-		setExpanded(!expanded);
+	const handleSelectionClick = () => {
+		setShow(!showFrame);
 	};
-
-	const webmap = new WebMap({
-		portalItem: {
-			id: "5f0a4edc599c4b6cbf146884818b03a7"
-		}
-	});
-
-	const view = new MapView({
-		map: webmap
-	});
 
 
 	return (
@@ -115,25 +83,15 @@ export default function FramesPage() {
 							image = "https://i.imgur.com/BxBuWTQ.png"
 							title = "test"
 						/>
+						<CardContent className = {classes.content}>
+							<Typography gutterBottom variant = "h5" component = "h2">
+								TEST
+							</Typography>
+							<Typography variant = "body2" color = "textSecondary" component = "p">
+								TEST
+							</Typography>
+						</CardContent>
 					</CardActionArea>
-					<CardContent className = {classes.content}>
-						<Typography gutterBottom variant = "h5" component = "h2">
-							TEST
-						</Typography>
-						<Typography variant = "body2" color = "textSecondary" component = "p">
-							TEST
-							<IconButton
-								className = {clsx(classes.expand, {
-									[classes.expandOpen]: expanded,
-								})}
-								onClick = {handleExpandClick}
-								aria-expanded = {expanded}
-								aria-label = "show more"
-							>
-								<ExpandMoreIcon/>
-							</IconButton>
-						</Typography>
-					</CardContent>
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button size = "small" color = "primary">Share</Button>
@@ -150,25 +108,15 @@ export default function FramesPage() {
 							image = "https://i.imgur.com/BxBuWTQ.png"
 							title = "test"
 						/>
+						<CardContent className = {classes.content}>
+							<Typography gutterBottom variant = "h5" component = "h2">
+								TEST
+							</Typography>
+							<Typography variant = "body2" color = "textSecondary" component = "p">
+								TEST
+							</Typography>
+						</CardContent>
 					</CardActionArea>
-					<CardContent className = {classes.content}>
-						<Typography gutterBottom variant = "h5" component = "h2">
-							TEST
-						</Typography>
-						<Typography variant = "body2" color = "textSecondary" component = "p">
-							TEST
-							<IconButton
-								className = {clsx(classes.expand, {
-									[classes.expandOpen]: expanded,
-								})}
-								onClick = {handleExpandClick}
-								aria-expanded = {expanded}
-								aria-label = "show more"
-							>
-								<ExpandMoreIcon/>
-							</IconButton>
-						</Typography>
-					</CardContent>
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button size = "small" color = "primary">Share</Button>
@@ -185,25 +133,15 @@ export default function FramesPage() {
 							image = "https://i.imgur.com/BxBuWTQ.png"
 							title = "test"
 						/>
+						<CardContent className = {classes.content}>
+							<Typography gutterBottom variant = "h5" component = "h2">
+								TEST
+							</Typography>
+							<Typography variant = "body2" color = "textSecondary" component = "p">
+								TEST
+							</Typography>
+						</CardContent>
 					</CardActionArea>
-					<CardContent className = {classes.content}>
-						<Typography gutterBottom variant = "h5" component = "h2">
-							TEST
-						</Typography>
-						<Typography variant = "body2" color = "textSecondary" component = "p">
-							TEST
-							<IconButton
-								className = {clsx(classes.expand, {
-									[classes.expandOpen]: expanded,
-								})}
-								onClick = {handleExpandClick}
-								aria-expanded = {expanded}
-								aria-label = "show more"
-							>
-								<ExpandMoreIcon/>
-							</IconButton>
-						</Typography>
-					</CardContent>
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button size = "small" color = "primary">Share</Button>
@@ -220,25 +158,15 @@ export default function FramesPage() {
 							image = "https://i.imgur.com/BxBuWTQ.png"
 							title = "test"
 						/>
+						<CardContent className = {classes.content}>
+							<Typography gutterBottom variant = "h5" component = "h2">
+								TEST
+							</Typography>
+							<Typography variant = "body2" color = "textSecondary" component = "p">
+								TEST
+							</Typography>
+						</CardContent>
 					</CardActionArea>
-					<CardContent className = {classes.content}>
-						<Typography gutterBottom variant = "h5" component = "h2">
-							TEST
-						</Typography>
-						<Typography variant = "body2" color = "textSecondary" component = "p">
-							TEST
-							<IconButton
-								className = {clsx(classes.expand, {
-									[classes.expandOpen]: expanded,
-								})}
-								onClick = {handleExpandClick}
-								aria-expanded = {expanded}
-								aria-label = "show more"
-							>
-								<ExpandMoreIcon/>
-							</IconButton>
-						</Typography>
-					</CardContent>
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button size = "small" color = "primary">Share</Button>
@@ -255,25 +183,15 @@ export default function FramesPage() {
 							image = "https://i.imgur.com/BxBuWTQ.png"
 							title = "test"
 						/>
+						<CardContent className = {classes.content}>
+							<Typography gutterBottom variant = "h5" component = "h2">
+								TEST
+							</Typography>
+							<Typography variant = "body2" color = "textSecondary" component = "p">
+								TEST
+							</Typography>
+						</CardContent>
 					</CardActionArea>
-					<CardContent className = {classes.content}>
-						<Typography gutterBottom variant = "h5" component = "h2">
-							TEST
-						</Typography>
-						<Typography variant = "body2" color = "textSecondary" component = "p">
-							TEST
-							<IconButton
-								className = {clsx(classes.expand, {
-									[classes.expandOpen]: expanded,
-								})}
-								onClick = {handleExpandClick}
-								aria-expanded = {expanded}
-								aria-label = "show more"
-							>
-								<ExpandMoreIcon/>
-							</IconButton>
-						</Typography>
-					</CardContent>
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button size = "small" color = "primary">Share</Button>
@@ -290,33 +208,26 @@ export default function FramesPage() {
 							image = "https://i.imgur.com/BxBuWTQ.png"
 							title = "test"
 						/>
+						<CardContent className = {classes.content}>
+							<Typography gutterBottom variant = "h5" component = "h2">
+								TEST
+							</Typography>
+							<Typography variant = "body2" color = "textSecondary" component = "p">
+								TEST
+							</Typography>
+						</CardContent>
 					</CardActionArea>
-					<CardContent className = {classes.content}>
-						<Typography gutterBottom variant = "h5" component = "h2">
-							TEST
-						</Typography>
-						<Typography variant = "body2" color = "textSecondary" component = "p">
-							TEST
-							<IconButton
-								className = {clsx(classes.expand, {
-									[classes.expandOpen]: expanded,
-								})}
-								onClick = {handleExpandClick}
-								aria-expanded = {expanded}
-								aria-label = "show more"
-							>
-								<ExpandMoreIcon/>
-							</IconButton>
-						</Typography>
-					</CardContent>
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button size = "small" color = "primary">Share</Button>
 						<Button size = "small" color = "primary">Learn More</Button>
 					</CardActions>
 				</Card>
-
 			</Box>
+
+			{/*<Box className = {classes.expand}>
+				<SelectedSceneView onSetSceneView={setSceneView}/>
+			</Box>*/}
 		</AppFrame>
 	);
-}
+};
