@@ -99,7 +99,7 @@ const useStyles = makeStyles(() =>
 	createStyles({
 		container: {
 			height  : '90vh',
-			width   : '100vw',
+			width   : '90vw',
 			overflow: "hidden",
 		},
 		mapDiv   : {
