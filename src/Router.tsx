@@ -5,6 +5,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import FramesPage from "./pages/FramesPage";
 import GalleryPage from "./pages/GalleryPage";
 import TestPage from "./pages/TestPage";
+import ProjectsPage from "./pages/ProjectsPage";
 
 const routeOptions = {
 	showAppBar: true,
@@ -20,6 +21,9 @@ const router = OptionsRouter(routeOptions, (route) => ({
 	}),
 	frames   : route("frames", {
 		component: FramesPage,
+	}),
+	projects   : route("projects | scratches", {
+		component: ProjectsPage,
 	}),
 	gallery  : route("gallery", {
 		component: GalleryPage,

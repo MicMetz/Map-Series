@@ -14,11 +14,12 @@ const Drawer: React.FC = () => {
 	const [open, setOpen]           = useRecoilState(drawerOpenState);
 	const history                   = useHistory();
 	// const greaterThan400            = useMediaQuery("(min-width:400px)");
-	const {home, favorites, frames, gallery, test} = useRoutesActive({
+	const {home, favorites, frames, gallery, projects, test} = useRoutesActive({
 		home     : router.home,
 		favorites: router.favorites,
 		frames   : router.frames,
 		gallery  : router.gallery,
+		projects  : router.projects,
 		test     : router.test,
 	});
 
@@ -41,6 +42,11 @@ const Drawer: React.FC = () => {
 
 	const onGalleryClick = () => {
 		history.push(router.gallery().$);
+		setOpen(false);
+	};
+
+	const onProjectsClick = () => {
+		history.push(router.projects().$);
 		setOpen(false);
 	};
 

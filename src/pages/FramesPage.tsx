@@ -1,10 +1,9 @@
-import React, {useEffect, useState, useRef}                                                                                                     from "react";
-import AppFrame                                                                                                                                 from "components/app/AppFrame";
-import {Theme}                                                                                                                                  from '@material-ui/core/styles';
-import {makeStyles, createStyles}                                                                                                               from '@material-ui/styles';
-import {Typography, Divider, Box, Card, CardMedia, CardContent, CardActions, CardActionArea, Button, FormControlLabel, Switch, Slide, Collapse} from "@material-ui/core";
-import SelectedSceneView                                                                                                                        from "components/mapframe/SelectedSceneView"
-import useSetMapsQueryParams                                                                                                                    from "../store/useMapQueryParams";
+import React, {useEffect, useState, useRef}                                                                           from "react";
+import AppFrame                                                                                                       from "components/app/AppFrame";
+import {makeStyles, createStyles}                                                                                     from '@material-ui/styles';
+import {Typography, Divider, Box, Card, CardMedia, CardContent, CardActions, CardActionArea, Button, Slide, Collapse} from "@material-ui/core";
+import SelectedSceneView                                                                                              from "components/mapframe/SelectedSceneView"
+import useSetMapsQueryParams                                                                                          from "../store/useMapQueryParams";
 
 
 
@@ -38,13 +37,13 @@ const useStyles = makeStyles(() =>
 			overflow:     'hidden',
 		},
 		content:          {
-			display: "flex-box",
+			display:  "flex-box",
 			width:    300,
 			height:   200,
 			overflow: 'hidden',
 		},
 		actions:          {
-			size: 35,
+			size:   35,
 			bottom: "100%"
 		},
 		actions_collapse: {
@@ -74,6 +73,7 @@ export default function FramesPage() {
 
 	const handleSelectionClick = () => {
 		setShow(!showFrame);
+		console.log("function called")
 	};
 
 
@@ -96,7 +96,7 @@ export default function FramesPage() {
 						</CardActionArea>
 						<Divider variant = "middle"/>
 						<CardActions disableSpacing className = {classes.actions}>
-							<Button variant = "contained" color = "primary" onChange = {handleSelectionClick}>
+							<Button variant = "contained" color = "primary" href = "public/static/frames/OaklandALPR.html">
 								Show Frame
 							</Button>
 							<Button size = "small" color = "primary">Share</Button>
@@ -107,7 +107,6 @@ export default function FramesPage() {
 					<Card className = {classes.cardItem}>
 						<CardActionArea>
 							<CardMedia component = "img" alt = "" height = "140" image = "https://i.imgur.com/BxBuWTQ.png" title = "test"/>
-
 							<CardContent className = {classes.content}>
 								<Typography gutterBottom variant = "h5" component = "h2">
 									TEST
@@ -119,7 +118,7 @@ export default function FramesPage() {
 						</CardActionArea>
 						<Divider variant = "middle"/>
 						<CardActions disableSpacing className = {classes.actions}>
-							<Button variant = "contained" color = "primary" onChange = {handleSelectionClick}>
+							<Button variant = "contained" color = "primary" href = "https://webdevgroupcu.org/mime9599/DEV/WarDriver/WarDriver2D-5/">
 								Show Frame
 							</Button>
 							<Button size = "small" color = "primary">Share</Button>
@@ -129,13 +128,7 @@ export default function FramesPage() {
 
 					<Card className = {classes.cardItem}>
 						<CardActionArea>
-							<CardMedia
-								component = "img"
-								alt = ""
-								height = "140"
-								image = "https://i.imgur.com/BxBuWTQ.png"
-								title = "test"
-							/>
+							<CardMedia component = "img" alt = "" height = "140" image = "https://i.imgur.com/BxBuWTQ.png" title = "test"/>
 							<CardContent className = {classes.content}>
 								<Typography gutterBottom variant = "h5" component = "h2">
 									TEST
@@ -147,7 +140,7 @@ export default function FramesPage() {
 						</CardActionArea>
 						<Divider variant = "middle"/>
 						<CardActions disableSpacing className = {classes.actions}>
-							<Button variant = "contained" color = "primary" onChange = {handleSelectionClick}>
+							<Button variant = "contained" color = "primary" href = "public/static/frames/TweetScrape.html">
 								Show Frame
 							</Button>
 							<Button size = "small" color = "primary">Share</Button>
@@ -157,13 +150,7 @@ export default function FramesPage() {
 
 					<Card className = {classes.cardItem}>
 						<CardActionArea>
-							<CardMedia
-								component = "img"
-								alt = ""
-								height = "140"
-								image = "https://i.imgur.com/BxBuWTQ.png"
-								title = "test"
-							/>
+							<CardMedia component = "img" alt = "" height = "140" image = "https://i.imgur.com/BxBuWTQ.png" title = "test"/>
 							<CardContent className = {classes.content}>
 								<Typography gutterBottom variant = "h5" component = "h2">
 									TEST
@@ -175,7 +162,7 @@ export default function FramesPage() {
 						</CardActionArea>
 						<Divider variant = "middle"/>
 						<CardActions disableSpacing className = {classes.actions}>
-							<Button variant = "contained" color = "primary" onChange = {handleSelectionClick}>
+							<Button variant = "contained" color = "primary" href = "public/static/frames/IoTScene.html">
 								Show Frame
 							</Button>
 							<Button size = "small" color = "primary">Share</Button>
@@ -185,13 +172,7 @@ export default function FramesPage() {
 
 					<Card className = {classes.cardItem}>
 						<CardActionArea>
-							<CardMedia
-								component = "img"
-								alt = ""
-								height = "140"
-								image = "https://i.imgur.com/BxBuWTQ.png"
-								title = "test"
-							/>
+							<CardMedia component = "img" alt = "" height = "140" image = "https://i.imgur.com/BxBuWTQ.png" title = "test"/>
 							<CardContent className = {classes.content}>
 								<Typography gutterBottom variant = "h5" component = "h2">
 									TEST
@@ -203,7 +184,7 @@ export default function FramesPage() {
 						</CardActionArea>
 						<Divider variant = "middle"/>
 						<CardActions disableSpacing className = {classes.actions}>
-							<Button variant = "contained" color = "primary" onChange = {handleSelectionClick}>
+							<Button variant = "contained" color = "primary" href = "public/static/frames/CameraScrape.html">
 								Show Frame
 							</Button>
 							<Button size = "small" color = "primary">Share</Button>
@@ -213,13 +194,7 @@ export default function FramesPage() {
 
 					<Card className = {classes.cardItem}>
 						<CardActionArea>
-							<CardMedia
-								component = "img"
-								alt = ""
-								height = "140"
-								image = "https://i.imgur.com/BxBuWTQ.png"
-								title = "test"
-							/>
+							<CardMedia component = "img" alt = "" height = "140" image = "https://i.imgur.com/BxBuWTQ.png" title = "test"/>
 							<CardContent className = {classes.content}>
 								<Typography gutterBottom variant = "h5" component = "h2">
 									TEST
@@ -231,7 +206,7 @@ export default function FramesPage() {
 						</CardActionArea>
 						<Divider variant = "middle"/>
 						<CardActions disableSpacing className = {classes.actions}>
-							<Button variant = "contained" color = "primary" onChange = {handleSelectionClick}>
+							<Button variant = "contained" color = "primary" href = "/components/mapframe/">
 								Show Frame
 							</Button>
 							<Button size = "small" color = "primary">Share</Button>

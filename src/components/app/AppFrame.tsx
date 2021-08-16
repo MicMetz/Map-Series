@@ -10,6 +10,7 @@ import themeState, {ThemeMode} from "../../store/themeState";
 import AppBar from "./AppBar";
 import Drawer from "./Drawer";
 
+import ReactDOM from "react-dom";
 
 /*Global variables*/
 export interface AppFrameProps {

@@ -1,13 +1,13 @@
-import {Box} from '@material-ui/core';
+import {Box}      from '@material-ui/core';
 import * as React from "react";
 
 import {useRef, useState, useEffect} from "react";
-import {loadModules} from "esri-loader";
-import MapsLayer from "./MapsLayer";
-import MapView from "@arcgis/core/views/MapView";
-import WebMap from "@arcgis/core/WebMap";
-import {makeStyles, createStyles} from "@material-ui/styles";
-import AppFrame from "../app/AppFrame";
+import {loadModules}                 from "esri-loader";
+import MapsLayer                     from "./MapsLayer";
+import MapView                       from "@arcgis/core/views/MapView";
+import WebMap                        from "@arcgis/core/WebMap";
+import {makeStyles, createStyles}    from "@material-ui/styles";
+import AppFrame                      from "../app/AppFrame";
 
 /*
 
@@ -98,13 +98,13 @@ import AppFrame from "../app/AppFrame";
 const useStyles = makeStyles(() =>
 	createStyles({
 		container: {
-			height  : '90vh',
-			width   : '90vw',
+			height:   '90vh',
+			width:    '90vw',
 			overflow: "hidden",
 		},
-		mapDiv   : {
+		mapDiv:    {
 			height: '100%',
-			width : '100%'
+			width:  '100%'
 		},
 	}));
 
@@ -113,10 +113,10 @@ const map = new WebMap({
 });
 
 const view = new MapView({
-	map      : map,
+	map:       map,
 	container: "viewDiv",
-	center   : [-118.244, 34.052],
-	zoom     : 5
+	center:    [-118.244, 34.052],
+	zoom:      5
 });
 
 
