@@ -85,6 +85,15 @@ const Drawer: React.FC = () => {
 
 				<Divider/>
 
+				<ListItemButton onClick = {onProjectsClick} selected = {projects}>
+					<ListItemIcon>
+						<MapIcon/>
+					</ListItemIcon>
+					<ListItemText primary = {"Projects"}/>
+				</ListItemButton>
+
+				<Divider/>
+
 				<ListItemButton onClick = {onGalleryClick} selected = {gallery}>
 					<ListItemIcon>
 						<MapIcon/>

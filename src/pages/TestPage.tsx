@@ -1,12 +1,11 @@
-import React from "react";
-import AppFrame from "components/app/AppFrame";
-import {Typography} from "@material-ui/core";
+import React     from "react";
+import AppFrame  from "components/app/AppFrame";
+import {LoadMap} from "../models/ArcMapLoader";
 
 export default function TestPage() {
 	return (
 		<AppFrame>
-			<Typography variant = "h1" fontSize = {"4rem"} marginLeft = {5} marginBottom = {5}>TEST PAGE</Typography>
-
+			<LoadMap Id="01c7ddf5c8bd47cfaed0cd8e91976b88"/>
 		</AppFrame>
 	);
 };
