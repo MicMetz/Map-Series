@@ -5,10 +5,10 @@ import {Typography, Divider, Box, Card, CardMedia, CardContent, CardActions, Car
 import useSetMapsQueryParams                                                                                                   from "../store/useMapQueryParams";
 import {LoadMap}                                                                                                               from "models/ArcMapLoader";
 import OaklandALPR                                                                                                             from "images/OaklandALPR.png";
-import CanBus                                                                                                                  from "src/images/CANBUSData.png";
-import ShodanCam                                                                                                               from "src/images/ShodanIoTCamLB(LT).jpg";
-import Conflict                                                                                                                from "src/images/ConflictLB.jpg";
-import ErrorIMG                                                                                                                from "src/images/BxBuWTQ.png";
+import CanBus                                                                                                                  from "images/CANBUSData.png";
+import ShodanCam                                                                                                               from "images/ShodanIoTCamLB(LT).jpg";
+import Conflict                                                                                                                from "images/ConflictLB.jpg";
+import ErrorIMG                                                                                                                from "images/BxBuWTQ.png";
 
 
 
