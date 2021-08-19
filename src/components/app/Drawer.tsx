@@ -1,26 +1,28 @@
 import {Divider, List, ListItemButton, ListItemIcon, ListItemText} from "@material-ui/core";
-import MuiDrawer from "@material-ui/core/Drawer";
-import HomeIcon from "@material-ui/icons/Home";
-import FavoritesIcon from "@material-ui/icons/Star";
-import MapIcon from '@material-ui/icons/Map';
-import React from "react";
-import {useHistory} from "react-router-dom";
-import {useRoutesActive} from "react-typesafe-routes";
-import {useRecoilState} from "recoil";
-import router from "Router";
-import drawerOpenState from "store/drawerOpenState";
+import MuiDrawer                                                   from "@material-ui/core/Drawer";
+import HomeIcon                                                    from "@material-ui/icons/Home";
+import FavoritesIcon                                               from "@material-ui/icons/Star";
+import MapIcon                                                     from '@material-ui/icons/Map';
+import React                                                       from "react";
+import {useHistory}                                                from "react-router-dom";
+import {useRoutesActive}                                           from "react-typesafe-routes";
+import {useRecoilState}                                            from "recoil";
+import router                                                      from "Router";
+import drawerOpenState                                             from "store/drawerOpenState";
+
+
 
 const Drawer: React.FC = () => {
-	const [open, setOpen]           = useRecoilState(drawerOpenState);
-	const history                   = useHistory();
+	const [open, setOpen]                                    = useRecoilState(drawerOpenState);
+	const history                                            = useHistory();
 	// const greaterThan400            = useMediaQuery("(min-width:400px)");
 	const {home, favorites, frames, gallery, projects, test} = useRoutesActive({
-		home     : router.home,
+		home:      router.home,
 		favorites: router.favorites,
-		frames   : router.frames,
-		gallery  : router.gallery,
-		projects  : router.projects,
-		test     : router.test,
+		frames:    router.frames,
+		gallery:   router.gallery,
+		projects:  router.projects,
+		test:      router.test,
 	});
 
 	const handleClose = () => setOpen(false);

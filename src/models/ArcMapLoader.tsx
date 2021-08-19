@@ -4,7 +4,7 @@ import {render}                   from "react-dom";
 
 
 
-export function LoadMap(props: any) {
+export function LoadMap(props: { Id: string; }) {
 	// create a ref to element to be used as the map's container
 	const mapElement = useRef(null);
 
@@ -38,5 +38,5 @@ export function LoadMap(props: any) {
 		};
 	}, [props]);
 
-	return <div style = {{height: "100%", width: "100%"}} ref = {mapElement}/>
+	return <div style = {{marginTop: 56, height: "calc(100% - 56px)", width: "100%"}} ref = {mapElement}/>
 }
