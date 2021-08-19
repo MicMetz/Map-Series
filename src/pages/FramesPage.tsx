@@ -11,11 +11,13 @@ import ShodanCam                                                                
 import Conflict                                                                                                       from "images/ConflictLB.jpg";
 import Hawaii                                                                                                         from "images/Hawaii.png";
 import Twitter                                                                                                        from "images/Twitter.png";
+import Voting                                                                                                         from "images/Voting.jpg";
+import WarDrive                                                                                                       from "images/WarDrive.png";
 import ErrorIMG                                                                                                       from "images/BxBuWTQ.png";
 /*Theme*/
-import {Theme}                 from "@material-ui/core";
-import themeState, {ThemeMode} from "store/themeState";
-import {makeStyles, createStyles} from '@material-ui/styles';
+import {Theme}                                                                                                        from "@material-ui/core";
+import themeState, {ThemeMode}                                                                                        from "store/themeState";
+import {makeStyles, createStyles}                                                                                     from '@material-ui/styles';
 
 
 
@@ -67,12 +69,12 @@ const useStyles = makeStyles(createStyles({
 			opacity: [0.7, 0.8, 0.6],
 		},
 	},
-	contain         : {
-		width: "100vw"
+	card_content    : {
+		fontSize: "10pt",
 	},
 	sub_focus       : {
 		color     : "#c3cf14",
-		fontSize  : "15pt",
+		fontSize  : "14pt",
 		fontWeight: "bolder",
 	},
 	modalStyle      : {
@@ -93,16 +95,18 @@ export default function FramesPage() {
 	const [openMod, setOpenMod] = React.useState(false);
 
 	const [mapID, setMapID]   = React.useState<null | any>(null);
-	const [anchor, setAnchor] = React.useState<HTMLButtonElement | null>(null);
+	const [dType, setDType] = React.useState(false);
 
 
-	const handleOpen  = (id: string) => {
+	const handleOpen  = (id: string, type: boolean) => {
 		setShow(true);
 		setMapID(id);
+		setDType(type);
 	};
 	const handleClose = () => {
 		setShow(false);
 		setMapID(null);
+		setDType(false);
 	};
 
 	const handleOpenMod  = () => {
@@ -112,10 +116,10 @@ export default function FramesPage() {
 		setOpenMod(false);
 	};
 
-	const handleSelectionClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-		setShow(!showFrame);
-		setAnchor(event.currentTarget);
-	};
+	// const handleSelectionClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+	// 	setShow(!showFrame);
+	// 	setAnchor(event.currentTarget);
+	// };
 
 	const TEST = (
 		<div className = {classes.modalStyle}>
@@ -135,16 +139,16 @@ export default function FramesPage() {
 					<CardActionArea>
 						<CardMedia
 							component = "img"
-							alt = ""
+							alt = "Thumbnail of a GIS map"
 							height = "140"
 							image = {OaklandALPR}
-							title = "test"
+							title = "Oakland ALPR"
 						/>
 						<CardContent className = {classes.content}>
 							<Typography gutterBottom variant = "h5" component = "h2" className = {classes.sub_focus}>
 								Oakland ALPR
 							</Typography>
-							<Typography variant = "body2" color = "textSecondary" component = "p">
+							<Typography variant = "body2" color = "textSecondary" component = "p" className = {classes.card_content}>
 								An example of the constant presence of passive surveillance technologies in the form of license plate readers.
 								Used to demonstrate an avenue a individual can be tracked through the identification of their vehicle.
 							</Typography>
@@ -153,12 +157,20 @@ export default function FramesPage() {
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button variant = "contained" color = "primary" onClick = {() => {
-							handleOpen("01c7ddf5c8bd47cfaed0cd8e91976b88");
+							handleOpen("01c7ddf5c8bd47cfaed0cd8e91976b88", false);
 						}}>
 							Show Frame
 						</Button>
 						<Button size = "small" color = "primary">Share</Button>
-						<Button size = "small" color = "primary">Learn More</Button>
+						<Button size = "small" color = "primary" onClick = {handleOpenMod}>Learn More</Button>
+						<Modal
+							open = {openMod}
+							onClose = {handleCloseMod}
+							aria-labelledby = "ALPR-modal"
+							aria-describedby = "ALPR-modal-description"
+						>
+							{TEST}
+						</Modal>
 					</CardActions>
 				</Card>
 
@@ -168,16 +180,16 @@ export default function FramesPage() {
 					<CardActionArea>
 						<CardMedia
 							component = "img"
-							alt = ""
+							alt = "Thumbnail of a GIS map"
 							height = "140"
 							image = {CanBus}
-							title = "test"
+							title = "Automotive Controller"
 						/>
 						<CardContent className = {classes.content}>
 							<Typography gutterBottom variant = "h5" component = "h2" className = {classes.sub_focus}>
 								Automotive Controller
 							</Typography>
-							<Typography variant = "body2" color = "textSecondary" component = "p">
+							<Typography variant = "body2" color = "textSecondary" component = "p" className = {classes.card_content}>
 								The points displayed on this map represent every stop of a single taxicab operating in Beijing.
 								The GPS coordinates of the cab was acquired by a team of Beijing university researchers,
 								through the process of penetrating the minimal security protecting the car’s CAN Bus.
@@ -187,12 +199,20 @@ export default function FramesPage() {
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button variant = "contained" color = "primary" onClick = {() => {
-							handleOpen("472e736fcd984cf6bd00e942e14a5b5d");
+							handleOpen("472e736fcd984cf6bd00e942e14a5b5d", false);
 						}}>
 							Show Frame
 						</Button>
 						<Button size = "small" color = "primary">Share</Button>
-						<Button size = "small" color = "primary">Learn More</Button>
+						<Button size = "small" color = "primary" onClick = {handleOpenMod}>Learn More</Button>
+						<Modal
+							open = {openMod}
+							onClose = {handleCloseMod}
+							aria-labelledby = "Automotive-modal"
+							aria-describedby = "Automotive-modal-description"
+						>
+							{TEST}
+						</Modal>
 					</CardActions>
 				</Card>
 
@@ -202,16 +222,16 @@ export default function FramesPage() {
 					<CardActionArea>
 						<CardMedia
 							component = "img"
-							alt = ""
+							alt = "Thumbnail of a GIS map"
 							height = "140"
 							image = {ShodanCam}
-							title = "test"
+							title = "Shodan: IP Camera Srcape"
 						/>
 						<CardContent className = {classes.content}>
 							<Typography gutterBottom variant = "h5" component = "h2" className = {classes.sub_focus}>
-								Shodan: IP Camera Sracpe
+								Shodan: IP Camera Srcape
 							</Typography>
-							<Typography variant = "body2" color = "textSecondary" component = "p">
+							<Typography variant = "body2" color = "textSecondary" component = "p" className = {classes.card_content}>
 
 							</Typography>
 						</CardContent>
@@ -219,12 +239,20 @@ export default function FramesPage() {
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button variant = "contained" color = "primary" onClick = {() => {
-							handleOpen("2a766a411bcb41d8b76f14ec038ffe20");
+							handleOpen("2a766a411bcb41d8b76f14ec038ffe20", false);
 						}}>
 							Show Frame
 						</Button>
 						<Button size = "small" color = "primary">Share</Button>
-						<Button size = "small" color = "primary">Learn More</Button>
+						<Button size = "small" color = "primary" onClick = {handleOpenMod}>Learn More</Button>
+						<Modal
+							open = {openMod}
+							onClose = {handleCloseMod}
+							aria-labelledby = "Camera-modal"
+							aria-describedby = "Camera-modal-description"
+						>
+							{TEST}
+						</Modal>
 					</CardActions>
 				</Card>
 
@@ -234,16 +262,16 @@ export default function FramesPage() {
 					<CardActionArea>
 						<CardMedia
 							component = "img"
-							alt = ""
+							alt = "Thumbnail of a GIS map"
 							height = "140"
 							image = {Conflict}
-							title = "test"
+							title = "Armenia—Azerbaijan Conflict"
 						/>
 						<CardContent className = {classes.content}>
 							<Typography gutterBottom variant = "h5" component = "h2" className = {classes.sub_focus}>
 								Armenia—Azerbaijan Conflict
 							</Typography>
-							<Typography variant = "body2" color = "textSecondary" component = "p">
+							<Typography variant = "body2" color = "textSecondary" component = "p" className = {classes.card_content}>
 								Map displaying the locations of known deaths and injuries that occurred throughout the 2020 Armenia—Azerbaijan conflict,
 								as reported by NGOs operating in country.
 							</Typography>
@@ -252,12 +280,20 @@ export default function FramesPage() {
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button variant = "contained" color = "primary" onClick = {() => {
-							handleOpen("d8e0e9d9acf1432b9cf7d4d3d41817c5");
+							handleOpen("d8e0e9d9acf1432b9cf7d4d3d41817c5", true);
 						}}>
 							Show Frame
 						</Button>
 						<Button size = "small" color = "primary">Share</Button>
-						<Button size = "small" color = "primary">Learn More</Button>
+						<Button size = "small" color = "primary" onClick = {handleOpenMod}>Learn More</Button>
+						<Modal
+							open = {openMod}
+							onClose = {handleCloseMod}
+							aria-labelledby = "Conflict-modal"
+							aria-describedby = "Conflict-modal-description"
+						>
+							{TEST}
+						</Modal>
 					</CardActions>
 				</Card>
 
@@ -267,16 +303,16 @@ export default function FramesPage() {
 					<CardActionArea>
 						<CardMedia
 							component = "img"
-							alt = ""
+							alt = "Thumbnail of a GIS map"
 							height = "140"
 							image = {Twitter}
-							title = "test"
+							title = "Twitter Web Scraping"
 						/>
 						<CardContent className = {classes.content}>
 							<Typography gutterBottom variant = "h5" component = "h2" className = {classes.sub_focus}>
 								Twitter Web Scraping
 							</Typography>
-							<Typography variant = "body2" color = "textSecondary" component = "p">
+							<Typography variant = "body2" color = "textSecondary" component = "p" className = {classes.card_content}>
 								Scraping twitter data using keywords referencing the Denver Protest shooting, October 10th.
 							</Typography>
 						</CardContent>
@@ -284,12 +320,20 @@ export default function FramesPage() {
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button variant = "contained" color = "primary" onClick = {() => {
-							handleOpen("4ed76d16ebdd47a78b32954420fce152");
+							handleOpen("4ed76d16ebdd47a78b32954420fce152", false);
 						}}>
 							Show Frame
 						</Button>
 						<Button size = "small" color = "primary">Share</Button>
-						<Button size = "small" color = "primary">Learn More</Button>
+						<Button size = "small" color = "primary" onClick = {handleOpenMod}>Learn More</Button>
+						<Modal
+							open = {openMod}
+							onClose = {handleCloseMod}
+							aria-labelledby = "Twitter-modal"
+							aria-describedby = "Twitter-modal-description"
+						>
+							{TEST}
+						</Modal>
 					</CardActions>
 				</Card>
 
@@ -299,27 +343,26 @@ export default function FramesPage() {
 					<CardActionArea>
 						<CardMedia
 							component = "img"
-							alt = ""
+							alt = "Thumbnail of a GIS map"
 							height = "140"
 							image = {Hawaii}
-							title = "test"
+							title = "Hawaii Island Lava Flow Risk"
 						/>
 						<CardContent className = {classes.content}>
 							<Typography gutterBottom variant = "h5" component = "h2" className = {classes.sub_focus}>
 								Hawaii Island Lava Flow Risk
 							</Typography>
-							<Typography variant = "body2" color = "textSecondary" component = "p">
-								The boundaries and classification of lava flow hazard zones on Hawaii Island were first mapped by the US Geological Survey in 1974.
+							<Typography variant = "body2" color = "textSecondary" component = "p" className = {classes.card_content}>
 								This classification scheme divides the island into 18 major zones that are ranked from 1 through 9 based on the probability of coverage by lava flows.
 								The risk levels are based primarily on the location and frequency of historic
-								eruptions (those for which there are written records or that are known from the oral traditions of the Hawaiians) and the geologic mapping and scientific dating of the old flows from prehistoric eruptions.
+								eruptions and the geologic mapping and scientific dating of the old flows from prehistoric eruptions.
 							</Typography>
 						</CardContent>
 					</CardActionArea>
 					<Divider variant = "middle"/>
 					<CardActions disableSpacing className = {classes.actions}>
 						<Button variant = "contained" color = "primary" onClick = {() => {
-							handleOpen("573d77a382ae4d14856f0f2110be14af");
+							handleOpen("573d77a382ae4d14856f0f2110be14af", false);
 						}}>
 							Show Frame
 						</Button>
@@ -335,13 +378,93 @@ export default function FramesPage() {
 						</Modal>
 					</CardActions>
 				</Card>
+
+				{/**/}
+
+				<Card className = {classes.cardItem}>
+					<CardActionArea>
+						<CardMedia
+							component = "img"
+							alt = "Thumbnail of a GIS map"
+							height = "140"
+							image = {Voting}
+							title = "Colorado State House Election Districts"
+						/>
+						<CardContent className = {classes.content}>
+							<Typography gutterBottom variant = "h5" component = "h2" className = {classes.sub_focus}>
+								Colorado State House Election Districts
+							</Typography>
+							<Typography variant = "body2" color = "textSecondary" component = "p" className = {classes.card_content}>
+
+							</Typography>
+						</CardContent>
+					</CardActionArea>
+					<Divider variant = "middle"/>
+					<CardActions disableSpacing className = {classes.actions}>
+						<Button variant = "contained" color = "primary" onClick = {() => {
+							handleOpen("865e34f2e17f45d0a198382045bce411", false);
+						}}>
+							Show Frame
+						</Button>
+						<Button size = "small" color = "primary">Share</Button>
+						<Button size = "small" color = "primary" onClick = {handleOpenMod}>Learn More</Button>
+						<Modal
+							open = {openMod}
+							onClose = {handleCloseMod}
+							aria-labelledby = "Voting-modal"
+							aria-describedby = "Voting-modal-description"
+						>
+							{TEST}
+						</Modal>
+					</CardActions>
+				</Card>
+
+				{/**/}
+
+				<Card className = {classes.cardItem}>
+					<CardActionArea>
+						<CardMedia
+							component = "img"
+							alt = "Thumbnail of a GIS map"
+							height = "140"
+							image = {WarDrive}
+							title = "War-Drive"
+						/>
+						<CardContent className = {classes.content}>
+							<Typography gutterBottom variant = "h5" component = "h2" className = {classes.sub_focus}>
+								War-Drive Of CU
+							</Typography>
+							<Typography variant = "body2" color = "textSecondary" component = "p" className = {classes.card_content}>
+								Collection of scanned wifi, bluetooth, and cell connections in the Boulder/Denver area, and a reporting of their level of security.
+							</Typography>
+						</CardContent>
+					</CardActionArea>
+					<Divider variant = "middle"/>
+					<CardActions disableSpacing className = {classes.actions}>
+						<Button variant = "contained" color = "primary" onClick = {() => {
+							handleOpen("2ab4383ba06a401690c7ed54c50fc726", true);
+						}}>
+							Show Frame
+						</Button>
+						<Button size = "small" color = "primary">Share</Button>
+						<Button size = "small" color = "primary" onClick = {handleOpenMod}>Learn More</Button>
+						<Modal
+							open = {openMod}
+							onClose = {handleCloseMod}
+							aria-labelledby = "WarDrive-modal"
+							aria-describedby = "WarDrive-modal-description"
+						>
+							{TEST}
+						</Modal>
+					</CardActions>
+				</Card>
 			</Box>
 		</Collapse>
 		<Modal
 			open = {showFrame}
 			onClose = {handleClose}
 		>
-			<LoadMap Id = {mapID}/>
+			<LoadMap Id = {mapID} ThreeDtype={dType}/>
 		</Modal>
 	</AppFrame>);
 };
