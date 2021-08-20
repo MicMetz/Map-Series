@@ -6,7 +6,6 @@ import {render}                   from "react-dom";
 
 interface ArcProps {
 	Id: string;
-	ThreeDtype: boolean;
 
 	map_Features?: boolean;
 	type?: string;
@@ -96,12 +95,11 @@ export function LoadMap(props: ArcProps) {
 
 
 	return (
-		<div
-			style = {{
-				marginTop: 56,
-				height   : "calc(100% - 56px)",
-				width    : "100%"
-			}} ref = {mapElement}
+		<div style = {{
+			marginTop: 56,
+			height   : "calc(100% - 56px)",
+			width    : "100%"
+		}} ref = {mapElement}
 		/>
 	);
 }
