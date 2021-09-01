@@ -1,5 +1,5 @@
 {
-  "name": "material-ui-recoil-template",
+  "name": "map-series",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -70,9 +70,9 @@
     "boilerplate",
     "template"
   ],
-  "author": "Anton Spöck",
+  "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/innFactory/material-ui-recoil-template/issues"
+    "url": ""
   }
 }

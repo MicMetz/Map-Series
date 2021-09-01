@@ -126,7 +126,7 @@ export default function FramesPage() {
 
 
     return (<AppFrame>
-        <Typography variant="h1" fontSize={"4rem"} marginLeft={5} marginBottom={5}>GIS Data Frames</Typography>
+        <Typography variant="h1" fontSize={"4rem"} marginLeft={5} marginBottom={5}>GIS Data Frames (TEST)</Typography>
         <Collapse in={!showFrame} className={classes.actions_collapse}>
             <Box className={classes.root}>
                 <Card className={classes.cardItem}>
@@ -353,7 +353,7 @@ export default function FramesPage() {
                     <Divider variant="middle"/>
                     <CardActions disableSpacing className={classes.actions}>
                         <Button variant="contained" color="primary" onClick={() => {
-                            handleOpen("2ab4383ba06a401690c7ed54c50fc726");
+                            handleOpen("54eec2cfd2af4463a906a55db1638584");
                         }}>
                             Show Frame
                         </Button>
