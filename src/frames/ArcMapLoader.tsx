@@ -101,28 +101,30 @@ export function LoadMap(props: ArcProps) {
 
 	useEffect(() => {
 
-			// define the view here so it can be referenced in the clean up function
+			// defining the view here so it can be referenced in the clean up function
 			let view: { destroy: () => void; } | null;
+			let insetView: { destroy: () => void; } | null;
 			loadModules([
 				"esri/views/MapView", "esri/WebMap",
 				"esri/config", "esri/core/watchUtils",
 				"esri/widgets/Legend", "esri/widgets/Expand",
 				"esri/widgets/Compass", "esri/widgets/ScaleBar",
-				"esri/Graphic"
+				"esri/Graphic", "esri/core/watchUtils"
 			], {
 				css: true
-			}).then(([MapView, WebMap, esriConfig, Legend, Expand, Compass, ScaleBar]) => {
+			}).then(([MapView, WebMap, esriConfig, Legend, Expand, Compass, ScaleBar, Graphic, watchUtils]) => {
 				esriConfig.portalUrl = "https://ucboulder.maps.arcgis.com";
-
-				if (props.map_Features) {
-
-				}
 
 				const webmap = new WebMap({
 					portalItem: {
 						id: props.Id
 					}
 				});
+
+				const overviewMap = new WebMap({
+					basemap: "streets-vector"
+				});
+
 
 				const view         = new MapView({
 					map: webmap,
@@ -134,20 +136,7 @@ export function LoadMap(props: ArcProps) {
 						rotationEnabled: false,
 					}
 				});
-				view.ui.components = []
-
-				const overviewMap = new WebMap({
-					basemap: "streets-vector"
-				});
-
-				const compass = new Compass({
-					view: view
-				});
-
-				const scaleBar = new ScaleBar({
-					view: view,
-					unit: "dual" // The scale bar displays both metric and non-metric units.
-				});
+				view.ui.components = [];
 
 				const mapView         = new MapView({
 					container  : "overviewDiv",
@@ -159,28 +148,107 @@ export function LoadMap(props: ArcProps) {
 					}
 				});
 				mapView.ui.components = [];
-				view.ui.add("overviewDiv", "bottom-right");
 
 
-				const titleExpand = new Expand({
-					expandIconClass: "esri-icon-dashboard",
-					expandTooltip  : "Summary stats",
-					view           : view,
-					// content        : titleContent,
-					expanded: view.widthBreakpoint !== "xsmall"
+				const compass = new Compass({
+					view: view
 				});
-				view.ui.add(titleExpand, "top-right");
 
-
-				const legendExpand = new Expand({
-					view   : view,
-					content: new Legend({
-						view: view
-					}),
-
-					expanded: view.widthBreakpoint !== "xsmall"
+				const scaleBar = new ScaleBar({
+					view: view,
+					unit: "dual" // The scale bar displays both metric and non-metric units.
 				});
-				view.ui.add(legendExpand, "bottom-left");
+
+
+
+				function setup() {
+                const extent3Dgraphic = new Graphic({
+                    geometry: null,
+                    symbol: {
+                        type: "simple-fill",
+                        color: [0, 0, 0, 0.5],
+                        outline: null
+                    }
+                });
+                mapView.graphics.add(extent3Dgraphic);
+
+                watchUtils.init(view, "extent", function () {
+                    // Sync the overview map location
+                    // whenever the 3d view is stationary
+                    if (view.stationary) {
+                        mapView
+                            .goTo({
+                                center: view.center,
+                                scale:
+                                    view.scale *
+                                    2 *
+                                    Math.max(
+                                        view.width / mapView.width,
+                                        view.height / mapView.height
+                                    )
+                            })
+                            .catch(function (error: string) {
+                                // ignore goto-interrupted errors
+                                if (error != "view:goto-interrupted") {
+                                    console.error(error);
+                                }
+                            });
+                    }
+                });
+            };
+
+            // Add UI elements to the view
+
+            // Displays instructions to the user for understanding the sample
+            // And places them in an Expand widget instance
+
+            const titleContent = document.createElement("div");
+            titleContent.style.padding = "15px";
+            titleContent.style.backgroundColor = "white";
+            titleContent.style.width = "500px";
+            titleContent.innerHTML = [
+                "<div id='title' class='esri-widget'>",
+                "<span id='num-cameras'>3057</span> recording devices were found on <span id='amg-type'>12/05/2020</span>. The average time a device has been",
+                "discoverable is <span id='avg-open-time'>100</span> hours.",
+                "</div>"
+            ].join(" ");
+
+            const titleExpand = new Expand({
+                expandIconClass: "esri-icon-dashboard",
+                expandTooltip: "Summary stats",
+                content: titleContent,
+                expanded: view.widthBreakpoint !== "xsmall"
+            });
+            view.ui.add(titleExpand, "top-right");
+
+            const legendExpand = new Expand({
+                view: view,
+                content:  view,
+                expanded: view.widthBreakpoint !== "xsmall"
+            });
+            view.ui.add(legendExpand, {position: "bottom-left"});
+            view.ui.add(scaleBar, {position: "top-left"});
+            view.ui.add(compass, {position: "top-left"});
+            view.ui.add(overviewMap, {position: "bottom-right"});
+
+            view.watch("widthBreakpoint", function (newValue: string) {
+                titleExpand.expanded = newValue !== "xsmall";
+                legendExpand.expanded = newValue !== "xsmall";
+            });
+
+            /*DISABLED NAV AND EXTENT FOR A FIXED PRESENTATION*/
+            // view.when(maintainFixedExtent).then(disableNavigation);
+            // mapView.when(disableNavigation).then(disablePopupOnClick);
+
+            function maintainFixedExtent(view) {
+                var fixedExtent = view.extent.clone();
+                // keep a fixed extent in the view
+                // when the view size changes
+                view.on("resize", function () {
+                    view.extent = fixedExtent;
+                });
+                return view;
+            }
 
 			});
 

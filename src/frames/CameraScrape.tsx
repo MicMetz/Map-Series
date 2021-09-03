@@ -409,7 +409,7 @@ export function LoadMapCamera() {
 			width : "100%"
 		}} ref = {mapElement}
 		>
-			<div className={classes.overviewDiv} ref={mapInset}/>
+			<div className = {classes.overviewDiv} ref = {mapInset}/>
 
 			<div className = {classes.panel}>
 				<canvas id = "typeChart" height = "400" width = "400"></canvas>
