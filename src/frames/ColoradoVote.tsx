@@ -1,7 +1,7 @@
 import {createStyles, makeStyles} from "@material-ui/styles";
-import React, {useRef, useEffect} from "react";
+import React                      from 'react'
+import {useRef, useEffect}        from "react";
 import {loadModules}              from "esri-loader";
-import {Chart, Doughnut, Bar}     from 'react-chartjs-2';
 
 
 
@@ -16,7 +16,7 @@ const useStyles = makeStyles(createStyles({
 }));
 
 
-export default function LoadMapOakland() {
+export default function LoadMapVote() {
 	const classes = useStyles();
 
 	// create a ref to element to be used as the map's container
@@ -28,6 +28,7 @@ export default function LoadMapOakland() {
 		// define the view here so it can be referenced in the clean up function
 		let view: { destroy: () => void; } | null;
 
+		// @ts-ignore
 		loadModules([
 			"esri/views/MapView", "esri/WebMap",
 			"esri/config", "esri/widgets/Compass", "esri/widgets/ScaleBar",
@@ -37,9 +38,10 @@ export default function LoadMapOakland() {
 			esriConfig.portalUrl = "https://ucboulder.maps.arcgis.com"
 
 
+
 			const webmap = new WebMap({
 				portalItem: {
-					id: "01c7ddf5c8bd47cfaed0cd8e91976b88"
+					id: "865e34f2e17f45d0a198382045bce411"
 				}
 			});
 
@@ -63,11 +65,14 @@ export default function LoadMapOakland() {
 				position: "top-left",
 			});
 
-/*			const legend = new Legend({
-				view     : view,
-			})
+			/*			const legend = new Legend({
+			 view     : view,
+			 container: document.createElement("div"),
+			 type     : "card",
+			 layout   : "auto"
+			 });
 
-			view.ui.add(legend, "bottom-left");*/
+			 view.ui.add(legend);*/
 			view.ui.add(compass);
 			view.ui.add(scale);
 			view.ui.add(insetView);
@@ -85,5 +90,5 @@ export default function LoadMapOakland() {
 		}} ref = {mapElement}
 		>
 		</div>
-	);
-};
+	)
+}

@@ -143,6 +143,7 @@ const itemData_Fall2021 = [
 	},
 ];
 
+/*
 const itemData_ = [
 	{
 		img  : "#",
@@ -165,6 +166,7 @@ const itemData_ = [
 		class: '#',
 	},
 ];
+*/
 
 
 export default function GalleryPage() {

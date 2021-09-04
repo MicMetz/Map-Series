@@ -3,8 +3,8 @@
 	<head>
 		<meta charSet = "utf-8"/>
 		<meta
-				content = "initial-scale=1, maximum-scale=1,user-scalable=no"
-				name = "viewport"
+			content = "initial-scale=1, maximum-scale=1,user-scalable=no"
+			name = "viewport"
 		/>
 
 		<!--
@@ -89,14 +89,14 @@
 				        "esri/widgets/Compass",
 				        "esri/widgets/ScaleBar"
 			        ], function (
-					Map,
-					MapView,
-					WebMap,
-					FeatureLayer,
-					Legend,
-					Expand,
-					Compass,
-					ScaleBar
+				Map,
+				MapView,
+				WebMap,
+				FeatureLayer,
+				Legend,
+				Expand,
+				Compass,
+				ScaleBar
 			) {
 
 				const featureLayer = new FeatureLayer({
@@ -164,22 +164,22 @@
 						// whenever the 3d view is stationary
 						if (mainView.stationary) {
 							mapView
-									.goTo({
-										      center: mainView.center,
-										      scale :
-												      mainView.scale *
-												      2 *
-												      Math.max(
-														      mainView.width / mapView.width,
-														      mainView.height / mapView.height
-												      )
-									      })
-									.catch(function (error) {
-										// ignore goto-interrupted errors
-										if (error.name !== "view:goto-interrupted") {
-											console.error(error);
-										}
-									});
+								.goTo({
+									      center: mainView.center,
+									      scale :
+										      mainView.scale *
+										      2 *
+										      Math.max(
+											      mainView.width / mapView.width,
+											      mainView.height / mapView.height
+										      )
+								      })
+								.catch(function (error) {
+									// ignore goto-interrupted errors
+									if (error.name !== "view:goto-interrupted") {
+										console.error(error);
+									}
+								});
 						}
 					});
 				};

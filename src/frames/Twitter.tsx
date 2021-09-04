@@ -16,7 +16,7 @@ interface props {
 }
 
 
-export default function TwitterFrame() {
+export default function LoadMapTwitter() {
 
 
 	return(

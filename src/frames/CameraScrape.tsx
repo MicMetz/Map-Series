@@ -1,7 +1,6 @@
 ﻿import {createStyles, makeStyles} from "@material-ui/styles";
 import React, {useRef, useEffect} from "react";
 import {loadModules}              from "esri-loader";
-import {Chart, Doughnut, Bar}     from 'react-chartjs-2';
 
 
 
@@ -114,7 +113,7 @@ interface ArcProps {
 };
 
 
-export function LoadMapCamera() {
+export default function LoadMapCamera() {
 	const classes = useStyles();
 
 	// create a ref to element to be used as the map's container
@@ -152,12 +151,12 @@ export function LoadMapCamera() {
 		// define the view here so it can be referenced in the clean up function
 		let view: { destroy: () => void; } | null;
 
-		let yearChart,
-		    typeChart,
-		    accessibilityChart,
-		    totalNumber,
-		    amountCam,
-		    avgOpenTime;
+		/*let yearChart,
+		 typeChart,
+		 accessibilityChart,
+		 totalNumber,
+		 amountCam,
+		 avgOpenTime;*/
 
 		loadModules([
 			"esri/views/MapView", "esri/WebMap",
@@ -182,13 +181,13 @@ export function LoadMapCamera() {
 			});
 
 			const view         = new MapView({
-				map      : webmap, // use the ref as a container
-				container: mapElement.current,
-				/*highlightOptions: {
-				 color      : "black",
-				 haloOpacity: 0.65,
-				 fillOpacity: 0.45
-				 }*/
+				map        : webmap, // use the ref as a container
+				container  : mapElement.current,
+				constraints: {
+					maxZoom        : 530000,
+					minScale       : 5300000,
+					rotationEnabled: false,
+				}
 			});
 			view.ui.components = [];
 
@@ -202,6 +201,23 @@ export function LoadMapCamera() {
 				}
 			});
 			mapView.ui.components = [];
+
+			const compass = new Compass({
+				view    : view,
+				position: "top-left",
+			});
+			view.ui.add(compass, {position: "top-left"});
+
+			const scale = new ScaleBar({
+				view: view,
+				unit: "dual", // The scale bar displays both metric and non-metric units.
+			});
+			view.ui.add(scale, {position: "top-left"});
+
+			const legend = new Legend({
+				view     : view,
+				container: document.createElement("div")
+			})
 
 
 			// view.ui.add("overviewDiv", "bottom-right");
@@ -235,26 +251,13 @@ export function LoadMapCamera() {
 							})
 							.catch(function (error: { name: string }) {
 								// ignore goto-interrupted errors
-								if (error.name != "view:goto-interrupted") {
+								if (error.name !== "view:goto-interrupted") {
 									console.error(error);
 								}
 							});
 					}
 				});
 			};
-
-			const compass = new Compass({
-				view    : view,
-				position: "top-left",
-			});
-			view.ui.add(compass, {position: "top-left"});
-
-			const scaleBar = new ScaleBar({
-				view: view,
-				unit: "dual", // The scale bar displays both metric and non-metric units.
-			});
-			view.ui.add(scaleBar, {position: "top-left"});
-
 
 			// Displays instructions to the user for understanding the sample
 			// And places them in an Expand widget instance
@@ -281,9 +284,9 @@ export function LoadMapCamera() {
 
 			const legendExpand = new Expand({
 				view   : view,
-				content: new Legend({
+				/*content: new Legend({
 					view: view
-				}),
+				}),*/
 
 				expanded: view.widthBreakpoint !== "xsmall"
 			});
@@ -403,8 +406,6 @@ export function LoadMapCamera() {
 
 	return (
 		<div style = {{
-			// marginTop: 56,
-			// height   : "calc(100% - 56px)",
 			height: "100%",
 			width : "100%"
 		}} ref = {mapElement}
@@ -415,7 +416,7 @@ export function LoadMapCamera() {
 				<canvas id = "typeChart" height = "400" width = "400"></canvas>
 				<canvas id = "accessibility-chart" width = "400" height = "220"></canvas>
 
-				<Bar data = {classes.data} width = {400} height = {400} options = {classes.options}/>
+				{/*<Bar data = {classes.data} width = {400} height = {400} options = {classes.options}/>*/}
 			</div>
 		</div>
 	);

@@ -86,19 +86,31 @@ const useStyles = makeStyles(createStyles({
 }));
 
 
+const enum FrameKey {
+	Camera   = "2a766a411bcb41d8b76f14ec038ffe20",
+	ALPR     = "01c7ddf5c8bd47cfaed0cd8e91976b88",
+	CANBUS   = "472e736fcd984cf6bd00e942e14a5b5d",
+	CONFLICT = "d8e0e9d9acf1432b9cf7d4d3d41817c5",
+	HAWAII   = "573d77a382ae4d14856f0f2110be14af",
+	TWITTER  = "4ed76d16ebdd47a78b32954420fce152",
+	VOTING   = "865e34f2e17f45d0a198382045bce411",
+	WARDRIVE = "2ab4383ba06a401690c7ed54c50fc726"
+};
+
+
 export default function FramesPage() {
     const classes = useStyles();
-
     const [showFrame, setShow] = React.useState(false);
     const [openMod, setOpenMod] = React.useState(false);
-
     const [mapID, setMapID] = React.useState<null | any>(null);
+
 
 
     const handleOpen = (id: string) => {
         setShow(true);
         setMapID(id);
     };
+
     const handleClose = () => {
         setShow(false);
         setMapID(null);
@@ -111,10 +123,6 @@ export default function FramesPage() {
         setOpenMod(false);
     };
 
-    // const handleSelectionClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // 	setShow(!showFrame);
-    // 	setAnchor(event.currentTarget);
-    // };
 
     const TEST = (
         <div className={classes.modalStyle}>
