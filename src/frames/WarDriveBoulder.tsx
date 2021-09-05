@@ -1,22 +1,22 @@
 import {createStyles, makeStyles} from "@material-ui/styles";
-import React, {useRef, useEffect} from "react";
+import React                      from 'react'
+import {useRef, useEffect}        from "react";
 import {loadModules}              from "esri-loader";
-import {Chart, Doughnut, Bar}     from 'react-chartjs-2';
+
 
 
 const useStyles = makeStyles(createStyles({
-	root: {
-
+	root     : {},
+	sub_focus: {
+		color     : "#c3cf14",
+		fontSize  : "14pt",
+		fontWeight: "bolder",
 	},
 
 }));
 
-interface props {
 
-}
-
-
-export default function LoadMapTwitter() {
+export default function LoadMapWarDrive() {
 	const classes = useStyles();
 
 	// create a ref to element to be used as the map's container
@@ -38,9 +38,10 @@ export default function LoadMapTwitter() {
 			esriConfig.portalUrl = "https://ucboulder.maps.arcgis.com"
 
 
+
 			const webmap = new WebMap({
 				portalItem: {
-					id: "4ed76d16ebdd47a78b32954420fce152"
+					id: "54eec2cfd2af4463a906a55db1638584"
 				}
 			});
 

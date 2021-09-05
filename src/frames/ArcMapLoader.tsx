@@ -8,18 +8,19 @@ import LoadMapConflict                      from "./Conflict";
 import LoadMapHawaii                        from "./Hawaii";
 import LoadMapOakland                       from "./Oakland";
 import LoadMapTwitter                       from "./Twitter";
+import LoadMapWarDrive                      from "./WarDriveBoulder";
 
 
 // 8 Frames
 const enum FrameKey {
 	Camera   = "2a766a411bcb41d8b76f14ec038ffe20",
-	ALPR     = "175ee55082e349caa4c747b88b5d0217",
+	ALPR     = "242aaaca30264a4e84d4fc17ca43e566",
 	CANBUS   = "472e736fcd984cf6bd00e942e14a5b5d",
 	CONFLICT = "d8e0e9d9acf1432b9cf7d4d3d41817c5",
 	HAWAII   = "573d77a382ae4d14856f0f2110be14af",
 	TWITTER  = "4ed76d16ebdd47a78b32954420fce152",
 	VOTING   = "865e34f2e17f45d0a198382045bce411",
-	WARDRIVE = "2ab4383ba06a401690c7ed54c50fc726"
+	WARDRIVE = "54eec2cfd2af4463a906a55db1638584"
 }
 
 
@@ -63,12 +64,12 @@ export function LoadMap(props: ArcProps) {
 		},
 		{
 			id  : 2,
-			key : "01c7ddf5c8bd47cfaed0cd8e91976b88",
+			key : "242aaaca30264a4e84d4fc17ca43e566",
 			mapp: <LoadMapOakland/>
 		},
 		{
 			id  : 3,
-			key : "472e736fcd984cf6bd00e942e14a5b5d",
+			key : "6ee9b687b4c9404d98ebd3baddad5fdb",
 			mapp: <LoadMapAutomotive/>
 		},
 		{
@@ -90,6 +91,11 @@ export function LoadMap(props: ArcProps) {
 			id  : 7,
 			key : "865e34f2e17f45d0a198382045bce411",
 			mapp: <LoadMapVote/>
+		},
+		{
+			id  : 8,
+			key : "54eec2cfd2af4463a906a55db1638584",
+			mapp: <LoadMapWarDrive/>
 		}
 	];
 
@@ -104,8 +110,14 @@ export function LoadMap(props: ArcProps) {
 	let mapElement = null;
 	// @ts-ignore
 	mapElement     = maplist.find(mapEle => (mapEle.key === props.Id)).mapp;
+
 	return (
-		<div className = {classes.root}>
+		<div style = {{
+			marginTop: 56,
+			height   : "calc(100% - 56px)",
+			width    : "100%"
+		}}
+		>
 			<Fragment>
 				<>{mapElement}</>
 			</Fragment>

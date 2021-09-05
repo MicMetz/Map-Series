@@ -6,7 +6,7 @@ import {loadModules}              from "esri-loader";
 
 const useStyles = makeStyles(createStyles({
 	root       : {},
-	overviewDiv: {
+	insetDiv   : {
 		position: "absolute",
 		right   : "6px",
 		width   : "200px",
@@ -119,7 +119,7 @@ export default function LoadMapCamera() {
 	// create a ref to element to be used as the map's container
 	const mapElement = useRef(null);
 	const mapInset   = useRef(null);
-	// const overviewDiv = () => (<div className = {classes.overviewDiv}/>);
+	// const insetDiv = () => (<div className = {classes.insetDiv}/>);
 
 	let options: {
 		responsive: false,
@@ -172,8 +172,8 @@ export default function LoadMapCamera() {
 
 			const webmap = new WebMap({
 				portalItem: {
-					id: "2a766a411bcb41d8b76f14ec038ffe20"
-				}
+					id: "35387a72056746c29ccefe98b251a2df"
+				},
 			});
 
 			const overviewMap = new WebMap({
@@ -183,16 +183,18 @@ export default function LoadMapCamera() {
 			const view         = new MapView({
 				map        : webmap, // use the ref as a container
 				container  : mapElement.current,
+				center     : [-98, 38],
+				zoom       : 1,
 				constraints: {
+					minScale       : 53000000,
 					maxZoom        : 530000,
-					minScale       : 5300000,
 					rotationEnabled: false,
 				}
 			});
 			view.ui.components = [];
 
-			const mapView         = new MapView({
-				container  : mapInset.current,
+			const insetView         = new MapView({
+				container  : "insetDiv",
 				center     : [-122.30, 37.80],
 				zoom       : 5,
 				map        : overviewMap,
@@ -200,27 +202,28 @@ export default function LoadMapCamera() {
 					rotationEnabled: false
 				}
 			});
-			mapView.ui.components = [];
-
-			const compass = new Compass({
-				view    : view,
-				position: "top-left",
-			});
-			view.ui.add(compass, {position: "top-left"});
+			insetView.ui.components = [];
 
 			const scale = new ScaleBar({
 				view: view,
-				unit: "dual", // The scale bar displays both metric and non-metric units.
+				unit: "dual",
 			});
-			view.ui.add(scale, {position: "top-left"});
 
-			const legend = new Legend({
-				view     : view,
-				container: document.createElement("div")
-			})
+			const compass = new Compass({
+				view: view,
+			});
 
 
-			// view.ui.add("overviewDiv", "bottom-right");
+			const legendExpand = new Expand({
+				view    : view,
+				content : new Legend({
+					view: view
+				}),
+				expanded: view.widthBreakpoint !== "xsmall"
+			});
+
+
+			// view.ui.add("insetDiv", "bottom-right");
 
 
 			function setup() {
@@ -232,21 +235,21 @@ export default function LoadMapCamera() {
 						outline: null
 					}
 				});
-				mapView.graphics.add(extent3Dgraphic);
+				insetView.graphics.add(extent3Dgraphic);
 
-				watchUtils.init(mapView, "extent", function () {
+				watchUtils.init(insetView, "extent", function () {
 					// Sync the overview map location
 					// whenever the 3d view is stationary
-					if (mapView.stationary) {
-						mapView
+					if (insetView.stationary) {
+						insetView
 							.goTo({
-								center: mapView.center,
+								center: insetView.center,
 								scale :
-									mapView.scale *
+									insetView.scale *
 									2 *
 									Math.max(
-										mapView.width / mapView.width,
-										mapView.height / mapView.height
+										insetView.width / insetView.width,
+										insetView.height / insetView.height
 									)
 							})
 							.catch(function (error: { name: string }) {
@@ -279,17 +282,13 @@ export default function LoadMapCamera() {
 				content        : titleContent,
 				expanded       : view.widthBreakpoint !== "xsmall"
 			});
+
+
+			view.ui.add("overviewDiv", "bottom-right");
 			view.ui.add(titleExpand, "top-right");
-
-
-			const legendExpand = new Expand({
-				view   : view,
-				/*content: new Legend({
-					view: view
-				}),*/
-
-				expanded: view.widthBreakpoint !== "xsmall"
-			});
+			view.ui.add(scale, {position: "top-left"});
+			view.ui.add(compass, {position: "top-left"});
+			view.ui.add(insetView);
 			view.ui.add(legendExpand, "bottom-left");
 
 
@@ -410,7 +409,7 @@ export default function LoadMapCamera() {
 			width : "100%"
 		}} ref = {mapElement}
 		>
-			<div className = {classes.overviewDiv} ref = {mapInset}/>
+			<div className = {classes.insetDiv} ref = {mapInset}/>
 
 			<div className = {classes.panel}>
 				<canvas id = "typeChart" height = "400" width = "400"></canvas>

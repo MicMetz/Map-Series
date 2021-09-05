@@ -6,12 +6,85 @@ import {loadModules}              from "esri-loader";
 
 
 const useStyles = makeStyles(createStyles({
-	root     : {},
-	sub_focus: {
-		color     : "#c3cf14",
-		fontSize  : "14pt",
+	root       : {},
+	overviewDiv: {
+		position: "absolute",
+		right   : "6px",
+		width   : "200px",
+		height  : "200px",
+		border  : "1px solid black",
+		overflow: "hidden",
+	},
+	panel      : {
+		position: "absolute",
+		right   : 0,
+		height  : "500%",
+		width   : "30%",
+		overflow: "visible",
+
+	},
+	miniTitle  : {
+		color     : "#149dcf",
+		fontSize  : "10pt",
 		fontWeight: "bolder",
 	},
+	numCameras : {
+		color     : "#ed5050",
+		fontSize  : "36pt",
+		fontWeight: "bolder",
+		lineHeight: 0.8,
+	},
+	amgType    : {
+		color     : "#c3cf14",
+		fontSize  : "17pt",
+		fontWeight: "bolder",
+		lineHeight: 0.8,
+	},
+	avgOpenTime: {
+		color     : "#149dcf",
+		fontSize  : "20pt",
+		fontWeight: "bolder",
+		lineHeight: 0.8,
+	},
+
+	data   : {
+		labels  : ["Yawcam", "Android", "DVR", "XP", "Unknown"],
+		datasets: [
+			{
+				label          : "Open/Inconclusive",
+				backgroundColor: "#149dcf",
+				stack          : "Stack 0",
+				data           : [985, 1000, 217, 855, 0]
+			},
+			{
+				label          : "Secure/Protected",
+				backgroundColor: "#ed5050",
+				stack          : "Stack 0",
+				data           : [1, 0, 1, 0, 0, 0]
+			}
+		]
+	},
+	options: {
+		responsive: false,
+		legend    : {
+			position: "top"
+		},
+		title     : {
+			display: true,
+			text   : "Discovered Webcam Devices"
+		},
+		scales    : {
+			xAxes: [
+				{
+					stacked: true,
+					ticks  : {
+						beginAtZero: true
+					}
+				}
+			],
+
+		}
+	}
 
 }));
 
@@ -31,10 +104,11 @@ export default function LoadMapVote() {
 		// @ts-ignore
 		loadModules([
 			"esri/views/MapView", "esri/WebMap",
-			"esri/config", "esri/widgets/Compass", "esri/widgets/ScaleBar",
+			"esri/config", "esri/widgets/Compass",
+			"esri/widgets/ScaleBar", "esri/widgets/Legend", "esri/widgets/Expand",
 		], {
 			css: true
-		}).then(([MapView, WebMap, esriConfig, Compass, ScaleBar]) => {
+		}).then(([MapView, WebMap, esriConfig, Compass, ScaleBar, Legend, Expand]) => {
 			esriConfig.portalUrl = "https://ucboulder.maps.arcgis.com"
 
 
@@ -45,37 +119,76 @@ export default function LoadMapVote() {
 				}
 			});
 
+			const overviewMap = new WebMap({
+				basemap: "streets-vector"
+			});
+
 			const view = new MapView({
 				map      : webmap,
-				container: mapElement.current
+				container: mapElement.current,
+				constraints: {
+					rotationEnabled: false,
+				}
 			});
+			view.ui.components = [];
 
-			const insetView = new MapView({
-				map      : webmap,
-				container: mapInset.current,
+			const insetView         = new MapView({
+				container  : mapInset.current,
+				center     : [-122.30, 37.80],
+				zoom       : 5,
+				map        : overviewMap,
+				constraints: {
+					rotationEnabled: false
+				}
 			});
+			insetView.ui.components = [];
 
 			const scale = new ScaleBar({
-				view: view,
-				unit: "dual"
+				view    : view,
+				unit    : "dual",
 			});
 
 			const compass = new Compass({
 				view    : view,
-				position: "top-left",
 			});
 
-			/*			const legend = new Legend({
-			 view     : view,
-			 container: document.createElement("div"),
-			 type     : "card",
-			 layout   : "auto"
-			 });
+			const legendExpand = new Expand({
+				view   : view,
+				content: new Legend({
+					view: view
+				}),
+				expanded: view.widthBreakpoint !== "xsmall"
+			});
 
-			 view.ui.add(legend);*/
-			view.ui.add(compass);
-			view.ui.add(scale);
+			const titleContent                 = document.createElement("div");
+			titleContent.style.padding         = "15px";
+			titleContent.style.backgroundColor = "black";
+			titleContent.style.width           = "500px";
+			titleContent.innerHTML             = [
+				"<div id='title' class='esri-widget'>",
+				"<span id='num-cameras'></span><span id='avg-open-time'></span>",
+				"</div>"
+			].join(" ");
+
+			const titleExpand = new Expand({
+				expandIconClass: "esri-icon-dashboard",
+				expandTooltip  : "Summary stats",
+				view           : view,
+				content        : titleContent,
+				expanded       : view.widthBreakpoint !== "xsmall"
+			});
+
+			view.watch("widthBreakpoint", function (newValue: String) {
+				titleExpand.expanded  = newValue !== "xsmall";
+				legendExpand.expanded = newValue !== "xsmall";
+			});
+
+			// view.ui.add("overviewDiv", {position: "bottom-right"});
+			view.ui.add(titleExpand, "top-right");
+			view.ui.add(compass, {position: "top-left"});
+			view.ui.add(scale, {position: "bottom-right"});
 			view.ui.add(insetView);
+			view.ui.add(legendExpand, {position: "bottom-left"});
 
 
 

@@ -107,7 +107,9 @@
 
 
             const webmap = new WebMap({
-                basemap: "streets-night-vector",
+	            portalItem: {
+                    id: "35387a72056746c29ccefe98b251a2df"
+                }
             });
 
             var overviewMap = new Map({
@@ -116,7 +118,7 @@
 
             const featureLayer = new FeatureLayer({
                 portalItem: {
-                    id: "1e348302532040d49156c012e3c71832"
+                    id: "35387a72056746c29ccefe98b251a2df"
                 }
             });
             webmap.add(featureLayer);
