@@ -123,9 +123,9 @@ export default function LoadMapVote() {
 				basemap: "streets-vector"
 			});
 
-			const view = new MapView({
-				map      : webmap,
-				container: mapElement.current,
+			const view         = new MapView({
+				map        : webmap,
+				container  : mapElement.current,
 				constraints: {
 					rotationEnabled: false,
 				}
@@ -144,17 +144,17 @@ export default function LoadMapVote() {
 			insetView.ui.components = [];
 
 			const scale = new ScaleBar({
-				view    : view,
-				unit    : "dual",
+				view: view,
+				unit: "dual",
 			});
 
 			const compass = new Compass({
-				view    : view,
+				view: view,
 			});
 
 			const legendExpand = new Expand({
-				view   : view,
-				content: new Legend({
+				view    : view,
+				content : new Legend({
 					view: view
 				}),
 				expanded: view.widthBreakpoint !== "xsmall"
@@ -185,10 +185,10 @@ export default function LoadMapVote() {
 
 			// view.ui.add("overviewDiv", {position: "bottom-right"});
 			view.ui.add(titleExpand, "top-right");
-			view.ui.add(compass, {position: "top-left"});
-			view.ui.add(scale, {position: "bottom-right"});
-			view.ui.add(insetView);
-			view.ui.add(legendExpand, {position: "bottom-left"});
+			view.ui.add(compass, "top-left");
+			view.ui.add(scale, "bottom-right");
+			view.ui.add(insetView, "bottom-right");
+			view.ui.add(legendExpand, "bottom-left");
 
 
 

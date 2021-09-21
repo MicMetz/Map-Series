@@ -5,16 +5,22 @@ import {loadModules}              from "esri-loader";
 
 
 const useStyles = makeStyles(createStyles({
-	root       : {},
-	insetDiv   : {
+	root        : {},
+	insetDiv    : {
 		position: "absolute",
 		right   : "6px",
+		bottom  : 80,
 		width   : "200px",
 		height  : "200px",
 		border  : "1px solid black",
 		overflow: "hidden",
 	},
-	panel      : {
+	titleContent: {
+		padding        : "15px",
+		backgroundColor: "white",
+		width          : "500px",
+	},
+	panel       : {
 		position: "absolute",
 		right   : 0,
 		height  : "500%",
@@ -22,24 +28,24 @@ const useStyles = makeStyles(createStyles({
 		overflow: "visible",
 
 	},
-	miniTitle  : {
+	miniTitle   : {
 		color     : "#149dcf",
 		fontSize  : "10pt",
 		fontWeight: "bolder",
 	},
-	numCameras : {
+	numMain     : {
 		color     : "#ed5050",
 		fontSize  : "36pt",
 		fontWeight: "bolder",
 		lineHeight: 0.8,
 	},
-	amgType    : {
+	amgType     : {
 		color     : "#c3cf14",
 		fontSize  : "17pt",
 		fontWeight: "bolder",
 		lineHeight: 0.8,
 	},
-	avgOpenTime: {
+	avgOpenTime : {
 		color     : "#149dcf",
 		fontSize  : "20pt",
 		fontWeight: "bolder",
@@ -184,7 +190,7 @@ export default function LoadMapCamera() {
 				map        : webmap, // use the ref as a container
 				container  : mapElement.current,
 				center     : [-98, 38],
-				zoom       : 1,
+				zoom       : 2,
 				constraints: {
 					minScale       : 53000000,
 					maxZoom        : 530000,
@@ -194,10 +200,10 @@ export default function LoadMapCamera() {
 			view.ui.components = [];
 
 			const insetView         = new MapView({
-				container  : "insetDiv",
-				center     : [-122.30, 37.80],
-				zoom       : 5,
 				map        : overviewMap,
+				container  : mapInset.current,
+				center     : [-98, 38],
+				zoom       : 1,
 				constraints: {
 					rotationEnabled: false
 				}
@@ -213,6 +219,9 @@ export default function LoadMapCamera() {
 				view: view,
 			});
 
+			const legend = new Legend({
+				view: view,
+			})
 
 			const legendExpand = new Expand({
 				view    : view,
@@ -269,9 +278,10 @@ export default function LoadMapCamera() {
 			titleContent.style.backgroundColor = "white";
 			titleContent.style.width           = "500px";
 			titleContent.innerHTML             = [
-				"<div id='title' class='esri-widget'>",
-				"<span id='num-cameras'>3057</span> recording devices were found on <span id='amg-type'>12/05/2020</span>. The average time a device has been",
-				"discoverable is <span id='avg-open-time'>100</span> hours.",
+				"<div className = {classes.titleContent}>",
+				"<div className={'esri-widget title'}>",
+				"<span className={classes.numMain}>3057</span> recording devices were found on <span className={classes.amgType}>'12/05/2020'</span>. 'The average time a device has been'",
+				"'discoverable is '<span className={classes.avgOpenTime}>'100'</span> hours.",
 				"</div>"
 			].join(" ");
 
@@ -284,11 +294,10 @@ export default function LoadMapCamera() {
 			});
 
 
-			view.ui.add("overviewDiv", "bottom-right");
 			view.ui.add(titleExpand, "top-right");
-			view.ui.add(scale, {position: "top-left"});
-			view.ui.add(compass, {position: "top-left"});
-			view.ui.add(insetView);
+			view.ui.add(compass, "top-left");
+			view.ui.add(scale, "bottom-right");
+			view.ui.add(insetView, "bottom-right");
 			view.ui.add(legendExpand, "bottom-left");
 
 
@@ -409,14 +418,15 @@ export default function LoadMapCamera() {
 			width : "100%"
 		}} ref = {mapElement}
 		>
+
 			<div className = {classes.insetDiv} ref = {mapInset}/>
 
-			<div className = {classes.panel}>
-				<canvas id = "typeChart" height = "400" width = "400"></canvas>
-				<canvas id = "accessibility-chart" width = "400" height = "220"></canvas>
+			{/*<div className = {classes.panel}>
+			 <canvas id = "typeChart" height = "400" width = "400"></canvas>
+			 <canvas id = "accessibility-chart" width = "400" height = "220"></canvas>
 
-				{/*<Bar data = {classes.data} width = {400} height = {400} options = {classes.options}/>*/}
-			</div>
+			 <Bar data = {classes.data} width = {400} height = {400} options = {classes.options}/>
+			 </div>*/}
 		</div>
 	);
 }

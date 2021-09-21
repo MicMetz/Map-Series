@@ -6,12 +6,86 @@ import {loadModules}              from "esri-loader";
 
 
 const useStyles = makeStyles(createStyles({
-	root     : {},
-	sub_focus: {
-		color     : "#c3cf14",
-		fontSize  : "14pt",
+	root       : {},
+	insetDiv   : {
+		position: "absolute",
+		right    : "6px",
+		bottom  : 80,
+		width   : "200px",
+		height  : "200px",
+		border  : "1px solid black",
+		overflow: "hidden",
+	},
+	panel      : {
+		position: "absolute",
+		right   : 0,
+		height  : "500%",
+		width   : "30%",
+		overflow: "visible",
+
+	},
+	miniTitle  : {
+		color     : "#149dcf",
+		fontSize  : "10pt",
 		fontWeight: "bolder",
 	},
+	numCameras : {
+		color     : "#ed5050",
+		fontSize  : "36pt",
+		fontWeight: "bolder",
+		lineHeight: 0.8,
+	},
+	amgType    : {
+		color     : "#c3cf14",
+		fontSize  : "17pt",
+		fontWeight: "bolder",
+		lineHeight: 0.8,
+	},
+	avgOpenTime: {
+		color     : "#149dcf",
+		fontSize  : "20pt",
+		fontWeight: "bolder",
+		lineHeight: 0.8,
+	},
+
+	data   : {
+		labels  : ["Yawcam", "Android", "DVR", "XP", "Unknown"],
+		datasets: [
+			{
+				label          : "Open/Inconclusive",
+				backgroundColor: "#149dcf",
+				stack          : "Stack 0",
+				data           : [985, 1000, 217, 855, 0]
+			},
+			{
+				label          : "Secure/Protected",
+				backgroundColor: "#ed5050",
+				stack          : "Stack 0",
+				data           : [1, 0, 1, 0, 0, 0]
+			}
+		]
+	},
+	options: {
+		responsive: false,
+		legend    : {
+			position: "top"
+		},
+		title     : {
+			display: true,
+			text   : "Discovered Webcam Devices"
+		},
+		scales    : {
+			xAxes: [
+				{
+					stacked: true,
+					ticks  : {
+						beginAtZero: true
+					}
+				}
+			],
+
+		}
+	}
 
 }));
 
@@ -49,9 +123,9 @@ export default function LoadMapConflict() {
 				basemap: "streets-vector"
 			});
 
-			const view = new SceneView({
-				map      : WebScene,
-				container: mapElement.current,
+			const view         = new SceneView({
+				map        : WebScene,
+				container  : mapElement.current,
 				constraints: {
 					rotationEnabled: false,
 				}
@@ -70,17 +144,17 @@ export default function LoadMapConflict() {
 			insetView.ui.components = [];
 
 			const scale = new ScaleBar({
-				view    : view,
-				unit    : "dual",
+				view: view,
+				unit: "dual",
 			});
 
 			const compass = new Compass({
-				view    : view,
+				view: view,
 			});
 
 			const legendExpand = new Expand({
-				view   : view,
-				content: new Legend({
+				view    : view,
+				content : new Legend({
 					view: view
 				}),
 				expanded: view.widthBreakpoint !== "xsmall"
@@ -106,9 +180,9 @@ export default function LoadMapConflict() {
 
 			// view.ui.add("overviewDiv", {position: "bottom-right"});
 			view.ui.add(titleExpand, "top-right");
-			view.ui.add(compass, {position: "top-left"});
-			view.ui.add(scale, {position: "bottom-right"});
-			view.ui.add(insetView);
+			view.ui.add(compass, "top-left");
+			view.ui.add(scale, "bottom-right");
+			view.ui.add(insetView, "bottom-right");
 			view.ui.add(legendExpand, "bottom-left");
 
 			view.watch("widthBreakpoint", function (newValue: String) {
@@ -129,6 +203,7 @@ export default function LoadMapConflict() {
 			width : "100%"
 		}} ref = {mapElement}
 		>
+			<div className = {classes.insetDiv} ref = {mapInset}/>
 		</div>
 	)
 }

@@ -95,7 +95,7 @@ const enum FrameKey {
 	TWITTER  = "4ed76d16ebdd47a78b32954420fce152",
 	VOTING   = "865e34f2e17f45d0a198382045bce411",
 	// WARDRIVE = "2ab4383ba06a401690c7ed54c50fc726"
-	WARDRIVE = "54eec2cfd2af4463a906a55db1638584"
+	WARDRIVE = "ca8ff123cd774e1d8035eaa06039f228"
 };
 
 
@@ -362,7 +362,7 @@ export default function FramesPage() {
                     <Divider variant="middle"/>
                     <CardActions disableSpacing className={classes.actions}>
                         <Button variant="contained" color="primary" onClick={() => {
-                            handleOpen("54eec2cfd2af4463a906a55db1638584");
+                            handleOpen("ca8ff123cd774e1d8035eaa06039f228");
                         }}>
                             Show Frame
                         </Button>
